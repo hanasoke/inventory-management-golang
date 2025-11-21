@@ -166,7 +166,29 @@ func CreateSupplier(c *gin.Context) {
 
 // Stock Alert Handlers 
 func GetStockAlerts(c *gin.Context) {
-	
+	var alerts []models.StockAlert
+	if err := database.DB.Preload("Product").Where("is_resolved = ?", false).Find(&alerts).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return 
+	}
+	c.JSON(http.StatusOK, alerts)
+}
+
+func ResolveAlert(c *gin.Context) {
+	id := c.Param("id")
+	var alert models.StockAlert
+	if err := database.DB.First(&alert, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Alert not found"})
+		return 
+	}
+
+	alert.IsResolved = true 
+	if err := database.DB.Save(&alert).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return 
+	}
+
+	c.JSON(http.StatusOK, alert)
 }
 
 // Helper function to check stock alerts 
@@ -184,3 +206,5 @@ func CheckStockAlert(product *models.Product) {
 		} 
 	}
 }
+
+// Dashbaord Statistics 
