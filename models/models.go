@@ -5,16 +5,16 @@ import (
 )
 
 type Product struct {
-	ID          uint      `gorm:"primaryKey" json:"id"`
-	Name        string    `gorm:"not null" json:"name"`
-	Description string    `json:"description"`
-	Category    string    `json:"category"`
-	Price       float64   `gorm:"not null" json:"price"`
-	Stock       int       `gorm:"not null" json:"stock"`
-	MinStock    int       `gorm:"default:5" json:"min_stock"`
-	SKU         string    `gorm:"uniqueIndex" json:"sku"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
+    ID          uint      `gorm:"primaryKey" json:"id"`
+    Name        string    `gorm:"not null" json:"name"`
+    Description string    `json:"description"`
+    Category    string    `json:"category"`
+    Price       float64   `gorm:"not null" json:"price"`
+    Stock       int       `gorm:"not null" json:"stock"`
+    MinStock    int       `gorm:"default:5" json:"min_stock"`
+    SKU         string    `gorm:"uniqueIndex" json:"sku"`
+    CreatedAt   time.Time `json:"created_at"`
+    UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type Supplier struct {
