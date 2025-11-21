@@ -17,3 +17,14 @@ func GetProducts(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, products)
 }
+
+func GetProduct(c *gin.Context) {
+	id := c.Params("id")
+	var product models.Product 
+	if err := database.DB.First(&product, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+		return 
+	}
+	c.JSON(http.StatusOK, product)
+}
+
