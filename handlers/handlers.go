@@ -208,3 +208,25 @@ func CheckStockAlert(product *models.Product) {
 }
 
 // Dashbaord Statistics 
+func GetDashboardStats(c *gin.Context) {
+	var totalProducts int64 
+	var lowStockProducts int64
+	var totalTransactions int64 
+	var totalValue float64 
+	
+	database.DB.Model(&models.Product{}).Count(&totalProducts)
+	database.DB.Model(&models.Product{}).Where("stock <= min_stock").Count(&lowStockProducts)
+	database.DB.Model(&models.Transaction{}).Count(&totalTransactions)
+
+	var products []models.Product
+	database.DB.Find(&products) 
+	for _, product := range products {
+		totalValue += product.Price * float64(product.Stock)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"total_products"	 : totalProducts,
+		"low_stock_products" : lowStockProducts,
+		"total_transactions" : totalValue,  
+	})
+}
