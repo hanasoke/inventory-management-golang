@@ -3,7 +3,6 @@ package main
 import (
 	"inventory-management-golang/database"
 	"inventory-management-golang/handlers"
-	"inventory-management/database"
 
 	"github.com/gin-gonic/gin"
 )
@@ -43,7 +42,30 @@ func main() {
 		}
 
 		// Transaction routes 
-		
+		transactions := api.Group("/transactions")
+		{
+			transactions.GET("", handlers.GetTransactions)
+			transactions.POST("", handlers.CreateTransaction)
+		}
+
+		// Supplier routes 
+		suppliers := api.Group("/suppliers")
+		{
+			suppliers.GET("", handlers.GetSuppliers)
+			suppliers.POST("", handlers.CreateSupplier)
+		}
+
+		// Alert routes 
+		alerts := api.Group("/alerts")
+		{
+			alerts.GET("", handlers.GetStockAlerts)
+			alerts.PUT("/:id/resolve", handlers.ResolveAlert)
+		}
+
+		// Dashboard route 
+		api.GET("/dashboard", handlers.GetDashboardStats)
 	}
 
+	// Start server 
+	r.Run(":8080")
 }
