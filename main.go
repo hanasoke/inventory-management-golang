@@ -36,7 +36,7 @@ func main() {
 		{
 			products.GET("", handlers.GetProducts)
 			products.GET("/:id", handlers.GetProduct)
-			products.POST("", handlers.CreateProduct)
+			products.POST("/add", handlers.CreateProduct)
 			products.PUT("/:id", handlers.UpdateProduct)
 			products.DELETE("/:id", handlers.DeleteProduct)
 		}
