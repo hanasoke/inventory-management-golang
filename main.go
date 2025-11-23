@@ -35,7 +35,7 @@ func main() {
 		products := api.Group("/products")
 		{
 			products.GET("", handlers.GetProducts)
-			products.GET("/:id", handlers.GetProduct)
+			products.GET("/detail/:id", handlers.GetProduct)
 			products.POST("/add", handlers.CreateProduct)
 			products.PUT("/:id", handlers.UpdateProduct)
 			products.DELETE("/:id", handlers.DeleteProduct)
