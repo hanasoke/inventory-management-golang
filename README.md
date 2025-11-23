@@ -19,14 +19,14 @@ Sistem manajemen inventory toko yang dibangun dengan Golang dan Gin framework
 
 ## API Endpoints 
 
-### Products 
+### 🎯 Products 
 - `GET /api/products` - Get all products 
 - `GET /api/products/:id` - Get product by ID 
 - `POST /api/products` - Create product baru 
 - `PUT /api/products/:id` - Update product 
 - `DELETE /api/products/:id` - Delete product 
 
-### Transactions 
+### 🔄 Transactions 
 - `GET /api/transactions` - Get All Transactions 
 - `POST /api/transactions` - Create a stock of transaction 
 
